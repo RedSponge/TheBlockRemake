@@ -1,0 +1,44 @@
+{
+com.badlogic.gdx.graphics.Color: {
+	Black: {
+		r: 5.086263E-8
+		g: 0
+		b: 0
+		a: 1
+	}
+	Cyan: {
+		r: 0
+		g: 1
+		b: 0.95177794
+		a: 1
+	}
+	White: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: up
+		down: down
+		over: over
+	}
+}
+	BitmapFont: {
+		dotty: {
+			file: ../fonts/default.fnt
+		}
+	}
+	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: dotty
+		fontColor: Black
+		overFontColor: White
+		up: up
+		down: down
+		over: over
+	}
+}
+}
