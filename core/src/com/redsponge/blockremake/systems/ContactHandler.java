@@ -21,7 +21,7 @@ public class ContactHandler implements ContactListener {
             Fixture contacter = fixA.getUserData().equals(Constants.JUMP_DETECTOR) ? fixA : fixB;
             Fixture other = contacter == fixA ? fixB : fixA;
 
-            ComponentMappers.floorCollide.get((Entity) contacter.getBody().getUserData()).floorsTouched++;
+            ComponentMappers.collider.get((Entity) contacter.getBody().getUserData()).floor.touching++;
             System.out.println("FLOOR TOUCH");
         }
     }
@@ -35,7 +35,7 @@ public class ContactHandler implements ContactListener {
             Fixture contacter = fixA.getUserData().equals(Constants.JUMP_DETECTOR) ? fixA : fixB;
             Fixture other = contacter == fixA ? fixB : fixA;
 
-            ComponentMappers.floorCollide.get((Entity) contacter.getBody().getUserData()).floorsTouched--;
+            ComponentMappers.collider.get((Entity) contacter.getBody().getUserData()).floor.touching--;
             System.out.println("FLOOR LEAVE");
         }
     }

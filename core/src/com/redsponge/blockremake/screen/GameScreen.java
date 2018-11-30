@@ -5,16 +5,17 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.blockremake.components.*;
 import com.redsponge.blockremake.input.InputHandle;
 import com.redsponge.blockremake.input.KeyboardInput;
 import com.redsponge.blockremake.systems.*;
+import com.redsponge.blockremake.util.EntityFactory;
+import com.redsponge.blockremake.util.Utils;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -23,6 +24,7 @@ public class GameScreen extends ScreenAdapter {
     private ShapeRenderer renderer;
     private FitViewport viewport;
     private Engine engine;
+    private Entity player;
 
     @Override
     public void show() {
@@ -34,7 +36,7 @@ public class GameScreen extends ScreenAdapter {
         PhysicsSystem physicsSystem = new PhysicsSystem(new Vector2(0, -10.0f));
         engine.addSystem(physicsSystem);
         engine.addEntityListener(0, physicsSystem);
-        engine.addEntityListener(Family.all(BodyComponent.class, RectangleComponent.class, FloorCollideComponent.class).get(), 1, new BodyBuilderListener());
+        engine.addEntityListener(Family.all(BodyComponent.class, RectangleComponent.class, CollideComponent.class).get(), 1, new BodyBuilderListener());
 
         InputHandle handle = new InputHandle();
         KeyboardInput input = new KeyboardInput(handle);
@@ -43,34 +45,15 @@ public class GameScreen extends ScreenAdapter {
 
         engine.addSystem(playerSystem);
 
-        Entity entity = new Entity();
-        ColorComponent colorComponent = new ColorComponent();
-        colorComponent.color = Color.GREEN;
-        RectangleComponent component = new RectangleComponent();
-        component.position.set(250, 250, 0);
-        component.scale.set(20, 20);
+        player = EntityFactory.createPlayer(new Vector2(250, 250));
+        engine.addEntity(player);
 
-        entity.add(colorComponent);
-        entity.add(component);
-        entity.add(new BodyComponent());
-        entity.add(new PlayerComponent());
-        entity.add(new FloorCollideComponent());
-
-        engine.addEntity(entity);
-
-        Entity platform = new Entity();
-        ColorComponent colorComponent1 = new ColorComponent();
-        colorComponent1.color = Color.PURPLE;
-        platform.add(colorComponent1);
-        RectangleComponent rectangleComponent = new RectangleComponent();
-        rectangleComponent.position.set(0, 100, 0);
-        rectangleComponent.scale.set(1000, 50);
-        platform.add(rectangleComponent);
-        BodyComponent body = new BodyComponent();
-        body.type = BodyDef.BodyType.StaticBody;
-        platform.add(body);
-
+        Entity platform = EntityFactory.createStaticPlatform(new Vector2(0, 100), new Vector2(1000, 50));
         engine.addEntity(platform);
+
+        engine.addEntity(
+                EntityFactory.createStaticPlatform(new Vector2(100, 100), new Vector2(200, 200))
+        );
 
         engine.addSystem(new PhysicsDebugSystem(viewport, physicsSystem.getWorld()));
     }
@@ -80,6 +63,8 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        viewport.getCamera().position.lerp(new Vector3(Utils.getWorldPosition(player), 0), 0.8f);
+
         viewport.apply();
         renderer.setProjectionMatrix(viewport.getCamera().combined);
 
@@ -88,6 +73,6 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, true);
+        viewport.update(width, height, false);
     }
 }

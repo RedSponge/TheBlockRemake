@@ -8,8 +8,10 @@ import com.badlogic.gdx.physics.box2d.Fixture;
  * Project: TheBlockRemake
  */
 
-public class FloorCollideComponent implements Component {
+public class CollideComponent implements Component {
 
-    public Fixture collider;
-    public int floorsTouched;
+    public CollideInfo floor;
+    public CollideInfo rightWall;
+    public CollideInfo leftWall;
+    public CollideInfo sealing;
 }

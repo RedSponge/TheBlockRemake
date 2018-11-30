@@ -48,6 +48,7 @@ public class PhysicsSystem extends IteratingSystem implements EntityListener {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(rect.scale.x / 2 / Constants.PPM, rect.scale.y / 2 / Constants.PPM);
         fdef.shape = shape;
+        fdef.friction = 0;
         component.body.createFixture(fdef).setUserData(Constants.ENTITY);
         shape.dispose();
     }

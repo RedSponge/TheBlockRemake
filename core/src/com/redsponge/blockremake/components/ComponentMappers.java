@@ -10,5 +10,5 @@ public class ComponentMappers {
 
     public static final ComponentMapper<RectangleComponent> rectangle = ComponentMapper.getFor(RectangleComponent.class);
 
-    public static final ComponentMapper<FloorCollideComponent> floorCollide = ComponentMapper.getFor(FloorCollideComponent.class);
+    public static final ComponentMapper<CollideComponent> collider = ComponentMapper.getFor(CollideComponent.class);
 }

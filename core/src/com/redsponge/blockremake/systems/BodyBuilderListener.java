@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.redsponge.blockremake.components.BodyComponent;
 import com.redsponge.blockremake.components.ComponentMappers;
-import com.redsponge.blockremake.components.FloorCollideComponent;
+import com.redsponge.blockremake.components.CollideComponent;
 import com.redsponge.blockremake.components.RectangleComponent;
 import com.redsponge.blockremake.util.Constants;
 
@@ -33,15 +33,16 @@ public class BodyBuilderListener implements EntityListener {
     public void entityAdded(Entity entity) {
         BodyComponent body = ComponentMappers.body.get(entity);
         RectangleComponent rect = ComponentMappers.rectangle.get(entity);
-        FloorCollideComponent floorCollideComponent = ComponentMappers.floorCollide.get(entity);
+        CollideComponent collideComponent = ComponentMappers.collider.get(entity);
 
         FixtureDef collider = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(rect.scale.x / 2 / PPM, 2 / PPM, new Vector2(body.body.getLocalCenter()).add(0, -rect.scale.y / 2 / PPM), 0);
+        shape.setAsBox(rect.scale.x / 4 / PPM, 2 / PPM, new Vector2(body.body.getLocalCenter()).add(0, -rect.scale.y / 2 / PPM), 0);
         collider.shape = shape;
         collider.isSensor = true;
-        floorCollideComponent.collider = body.body.createFixture(collider);
-        floorCollideComponent.collider.setUserData(Constants.JUMP_DETECTOR);
+
+        collideComponent.floor.collider = body.body.createFixture(collider);
+        collideComponent.floor.collider.setUserData(Constants.JUMP_DETECTOR);
 
         body.body.setUserData(entity);
     }
