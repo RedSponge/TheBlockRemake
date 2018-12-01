@@ -1,7 +1,6 @@
 package com.redsponge.blockremake.components;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.physics.box2d.Fixture;
 
 /**
  * File created by Eran G aka RedSponge
@@ -10,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 
 public class CollideComponent implements Component {
 
-    public CollideInfo floor;
-    public CollideInfo rightWall;
-    public CollideInfo leftWall;
-    public CollideInfo sealing;
+    public CollideInfo floor = new CollideInfo();
+    public CollideInfo rightWall = new CollideInfo();
+    public CollideInfo leftWall = new CollideInfo();
+    public CollideInfo sealing = new CollideInfo();
 }

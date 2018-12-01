@@ -8,19 +8,15 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.blockremake.components.ColorComponent;
 import com.redsponge.blockremake.components.ComponentMappers;
 import com.redsponge.blockremake.components.RectangleComponent;
-
-import java.util.Comparator;
+import com.redsponge.blockremake.util.Constants;
 
 public class RenderingSystem extends SortedIteratingSystem {
 
     private ShapeRenderer shapeRenderer;
-    private Comparator<Entity> comparator;
-    private FitViewport viewport;
 
     public RenderingSystem(ShapeRenderer renderer, FitViewport viewport) {
-        super(Family.all(RectangleComponent.class, ColorComponent.class).get(), new ZComparator());
+        super(Family.all(RectangleComponent.class, ColorComponent.class).get(), new ZComparator(), Constants.RENDERING_PRIORITY);
         this.shapeRenderer = renderer;
-        this.viewport = viewport;
     }
 
     @Override
@@ -36,6 +32,6 @@ public class RenderingSystem extends SortedIteratingSystem {
         ColorComponent color = ComponentMappers.color.get(entity);
 
         shapeRenderer.setColor(color.color);
-        shapeRenderer.rect(rect.position.x-rect.scale.x/2, rect.position.y-rect.scale.y/2, rect.scale.x, rect.scale.y);
+        shapeRenderer.rect(rect.position.x - rect.scale.x / 2, rect.position.y - rect.scale.y / 2, rect.scale.x, rect.scale.y);
     }
 }

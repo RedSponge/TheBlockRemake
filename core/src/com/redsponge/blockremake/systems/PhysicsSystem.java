@@ -25,14 +25,14 @@ public class PhysicsSystem extends IteratingSystem implements EntityListener {
     private World world;
 
     public PhysicsSystem(Vector2 gravity) {
-        super(Family.all(BodyComponent.class, RectangleComponent.class).get());
+        super(Family.all(BodyComponent.class, RectangleComponent.class).get(), Constants.PHYSICS_PRIORITY);
         world = new World(gravity, true);
         world.setContactListener(new ContactHandler());
     }
 
     @Override
     public void update(float deltaTime) {
-        world.step(deltaTime, 5, 5);
+        world.step(deltaTime * Constants.PHYSICS_SPEED, 3, 3);
         super.update(deltaTime);
     }
 

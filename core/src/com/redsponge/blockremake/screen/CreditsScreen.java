@@ -1,7 +1,6 @@
 package com.redsponge.blockremake.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,8 +14,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.blockremake.TheBlock;
 import com.redsponge.blockremake.assets.Fonts;
-import com.redsponge.blockremake.button.SlideInTextButton;
 import com.redsponge.blockremake.skins.Skins;
+import com.redsponge.blockremake.util.Constants;
 import com.redsponge.blockremake.util.Utils;
 
 public class CreditsScreen extends ScreenAdapter {
@@ -35,7 +34,7 @@ public class CreditsScreen extends ScreenAdapter {
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
 
-        viewport = new FitViewport(MenuScreen.WIDTH, MenuScreen.HEIGHT);
+        viewport = new FitViewport(Constants.RESOLUTION.x, Constants.RESOLUTION.y);
 
 
         stage = new Stage(viewport, batch);

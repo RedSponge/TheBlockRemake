@@ -3,10 +3,11 @@ package com.redsponge.blockremake.assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Fonts {
+public class Fonts implements Disposable {
 
-    public static Fonts INSTANCE = new Fonts();
+    public static final Fonts INSTANCE = new Fonts();
 
     public final BitmapFont DOTTY;
     public final BitmapFont LCD;
@@ -24,4 +25,9 @@ public class Fonts {
         generator.dispose();
     }
 
+    @Override
+    public void dispose() {
+        LCD.dispose();
+        DOTTY.dispose();
+    }
 }
