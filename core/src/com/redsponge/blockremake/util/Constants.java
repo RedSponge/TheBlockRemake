@@ -20,10 +20,10 @@ public class Constants {
     public static final float JUMP_LENGTH = 0.15f;
 
     public static final Vector2 MAX_SPEED = new Vector2(10, 10);
-    public static final Vector2 PLAYER_SCALE = new Vector2(20, 20);
-    public static final Color PLAYER_COLOR = Color.GREEN;
+    public static final Vector2 PLAYER_SCALE = new Vector2(20, 40);
+    public static final Color PLAYER_COLOR = Color.BLUE;
 
-    public static final Color PLATFORM_COLOR_STATIC = Color.PURPLE;
+    public static final Color PLATFORM_COLOR_STATIC = Color.GREEN;
 
     public static final float PLAYER_SLIDE_STOP_STRENGTH = 0.9f; // Speed is multiplied by this number when sliding on ground
     public static final float PLAYER_MIN_HORIZONTAL_SPEED = 0.1f; // Absolute value of lowest speed, when goes below that reverts to 0 speed
@@ -37,4 +37,5 @@ public class Constants {
     public static final int PLAYER_PRIORITY = 1;
     public static final int PHYSICS_PRIORITY = 2;
     public static final int RENDERING_PRIORITY = 0;
+    public static final Vector2 SPAWN_POSITION = new Vector2(250, 250);
 }

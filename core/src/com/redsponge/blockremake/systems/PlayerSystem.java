@@ -41,6 +41,10 @@ public class PlayerSystem extends IteratingSystem {
 
         body.body.setLinearVelocity(new Vector2(speedX, body.body.getLinearVelocity().y));
         Gdx.app.log("[PLAYER]", "" + speedX);
+
+        if (Utils.getWorldPosition(entity).y < 0) {
+            Utils.setWorldPosition(entity, Constants.SPAWN_POSITION);
+        }
     }
 
     private void handleJump(Entity entity, CollideComponent collideComponent) {

@@ -3,6 +3,7 @@ package com.redsponge.blockremake.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.blockremake.components.ColorComponent;
@@ -13,10 +14,12 @@ import com.redsponge.blockremake.util.Constants;
 public class RenderingSystem extends SortedIteratingSystem {
 
     private ShapeRenderer shapeRenderer;
+    private SpriteBatch batch;
 
-    public RenderingSystem(ShapeRenderer renderer, FitViewport viewport) {
+    public RenderingSystem(ShapeRenderer renderer, SpriteBatch batch, FitViewport viewport) {
         super(Family.all(RectangleComponent.class, ColorComponent.class).get(), new ZComparator(), Constants.RENDERING_PRIORITY);
         this.shapeRenderer = renderer;
+        this.batch = batch;
     }
 
     @Override

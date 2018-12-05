@@ -6,13 +6,11 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.redsponge.blockremake.assets.ParticlePools;
 import com.redsponge.blockremake.components.BodyComponent;
 import com.redsponge.blockremake.components.CollideComponent;
 import com.redsponge.blockremake.components.RectangleComponent;
@@ -39,7 +37,7 @@ public class GameScreen extends ScreenAdapter {
 
         engine = new Engine();
 
-        engine.addSystem(new RenderingSystem(renderer, viewport));
+        engine.addSystem(new RenderingSystem(renderer, batch, viewport));
 
         PhysicsSystem physicsSystem = new PhysicsSystem(new Vector2(0, -10.0f));
         engine.addSystem(physicsSystem);
@@ -53,7 +51,7 @@ public class GameScreen extends ScreenAdapter {
 
         engine.addSystem(playerSystem);
 
-        player = EntityFactory.createPlayer(new Vector2(250, 250));
+        player = EntityFactory.createPlayer(Constants.SPAWN_POSITION);
         engine.addEntity(player);
 
         Entity platform = EntityFactory.createStaticPlatform(new Vector2(0, 100), new Vector2(1000, 50));
@@ -79,13 +77,7 @@ public class GameScreen extends ScreenAdapter {
         renderer.setProjectionMatrix(viewport.getCamera().combined);
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
-
-        ParticleEffectPool.PooledEffect effect = ParticlePools.INSTANCE.playerFollow.obtain();
-        effect.setPosition(playerPos.x, playerPos.y + 20);
-        effect.draw(batch, delta);
-
         engine.update(delta);
-//        ParticlePools.INSTANCE.playerFollow.free(effect);
     }
 
     @Override
